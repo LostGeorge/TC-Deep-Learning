@@ -1,25 +1,15 @@
 import os
-import matplotlib.pyplot as plt
-from skimage.io import imread, imshow
+#import matplotlib.pyplot as plt
+from skimage.io import imread
 from skimage import img_as_ubyte
 
-'''
-Notes for image scale (deg C)
+image_strs = os.listdir('img\\')
+image_strs = ['img\\' + s for s in image_strs if s[-5] == 'r']
+str_splits = [s.split('-') for s in image_strs]
+str_indices = {s: i for i, s in enumerate(image_strs)}
 
-Dark Gray ----------- (64): -31 to -41
-Medium Gray -------- (112): -42 to -53
-Light Gray --------- (160): -54 to -63
-Black ---------------- (0): -64 to -69
-White -------------- (255): -70 to -75
-Cold Medium Gray --- (136): -76 to -80
-Cold Dark Gray ------ (88): < -80
+images = [img_as_ubyte(imread(im, as_gray=False)) for im in image_strs]
 
-'''
+ind_to_intesnity = {i: (float(s[-3]), float(s[-2])) for i, s in enumerate(str_splits)}
 
-images = os.listdir('img\\')
-images = ['img\\' + i for i in images]
-
-imgs = [img_as_ubyte(imread(i, as_gray=True)) for i in images]
-plt.imshow(imgs[17])
-plt.show()
-
+# TODO: Naive linear regression test with images completely flattened?
