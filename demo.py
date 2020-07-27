@@ -69,14 +69,14 @@ def color_img_to_scaled_temp(img):
 
 scaled_images = [color_img_to_scaled_temp(img) for img in images]
 
-intensities = [(float(s[-3]), float(s[-2])) for _, s in enumerate(str_splits)]
+intensities = [(float(s[-3]), float(s[-2])) for _, s in enumerate(str_splits)] # (wind speed, air pressure)
 
 # TODO: Naive linear regression test with images completely flattened? 
 flattened_imgs = [img.reshape(img.shape[0]*img.shape[1]) for img in scaled_images]
 image_feats = np.array(flattened_imgs)
-intensity_feats = np.array(intensities)
+intensity_targets = np.array(intensities)
 
-x_train, x_test, y_train, y_test = train_test_split(image_feats, intensity_feats, train_size=0.6)
+x_train, x_test, y_train, y_test = train_test_split(image_feats, intensity_targets, train_size=0.6)
 reg = LinearRegression(fit_intercept=True, normalize=True)
 reg.fit(x_train, y_train)
 print(reg.score(x_train, y_train))
