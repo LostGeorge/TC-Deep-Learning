@@ -1,0 +1,233 @@
+{'lat': <class 'netCDF4._netCDF4.Variable'>
+float32 lat(lat)
+    long_name: Latitude
+    units: degrees_north
+    actual_range: [ 0.14732456 21.147324  ]
+unlimited dimensions:
+current shape = (601,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'lon': <class 'netCDF4._netCDF4.Variable'>
+float32 lon(lon)
+    long_name: Longitude
+    units: degrees_east
+    actual_range: [-169.3061 -148.3061]
+unlimited dimensions:
+current shape = (601,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'lat1': <class 'netCDF4._netCDF4.Variable'>
+float32 lat1(lat1)
+    long_name: High resolution Latitude
+    units: degrees_north
+    actual_range: [ 5.3973246 15.897325 ]
+unlimited dimensions:
+current shape = (1201,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'lon1': <class 'netCDF4._netCDF4.Variable'>
+float32 lon1(lon1)
+    long_name: High resolution Longitude
+    units: degrees_east
+    actual_range: [-164.0561 -153.5561]
+unlimited dimensions:
+current shape = (1201,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'time': <class 'netCDF4._netCDF4.Variable'>
+float64 time(time)
+    long_name: time
+    standard_name: time
+    units: days since 1970-01-01 00:00:00
+    calendar: standard
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'grid_lat': <class 'netCDF4._netCDF4.Variable'>
+float32 grid_lat(time, lat)
+    long_name: Latitude
+    units: degrees_north
+    Note: This coordinate will be concatenated when combining many files
+unlimited dimensions: time
+current shape = (1, 601)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'grid_lon': <class 'netCDF4._netCDF4.Variable'>
+float32 grid_lon(time, lon)
+    long_name: Longitude
+    units: degrees_east
+    Note: This coordinate will be concatenated when combining many files
+unlimited dimensions: time
+current shape = (1, 601)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'NomDate': <class 'netCDF4._netCDF4.Variable'>
+int32 NomDate(time)
+    long_name: Nominal Start Date
+    format: YYYYJJJ (GMT)
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of -2147483647 used,
+
+'NomTime': <class 'netCDF4._netCDF4.Variable'>
+int32 NomTime(time)
+    long_name: Nominal Start Time
+    format: HHMMSS (GMT)
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of -2147483647 used,
+
+'sss': <class 'netCDF4._netCDF4.Variable'>
+int32 sss(time)
+    long_name: McIDAS sensor number
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of -2147483647 used,
+
+'SubSatLat': <class 'netCDF4._netCDF4.Variable'>
+float32 SubSatLat(time)
+    long_name: Sub-satellite latitude
+    units: degrees_north
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'SubSatLon': <class 'netCDF4._netCDF4.Variable'>
+float32 SubSatLon(time)
+    long_name: Sub-satellite longitude
+    units: degrees_east
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'WindSpd': <class 'netCDF4._netCDF4.Variable'>
+float32 WindSpd(time)
+    long_name: Wind Speed
+    units: knots
+    valid_range: [  0. 200.]
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'CentPrs': <class 'netCDF4._netCDF4.Variable'>
+float32 CentPrs(time)
+    long_name: Central Pressure
+    units: mb
+    valid_range: [ 700. 1100.]
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'dist2land': <class 'netCDF4._netCDF4.Variable'>
+int16 dist2land(time)
+    long_name: Distance to Land
+    units: km
+    Note: Interpolated from IBTrACS so precision is interpolated from 6-hr data
+    valid_range: [   0. 4000.]
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of -32767 used,
+
+'landfall': <class 'netCDF4._netCDF4.Variable'>
+int16 landfall(time)
+    long_name: Minimum Distance to Land until the next report (0=landfall in next 6-hr)
+    units: km
+    Note: Interpolated from IBTrACS so precision is interpolated from 6-hr data
+    valid_range: [   0. 4000.]
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of -32767 used,
+
+'CentLat': <class 'netCDF4._netCDF4.Variable'>
+float32 CentLat(time)
+    long_name: Latitude of Tropical Cyclone Circulation Center
+    units: degrees_north
+    valid_range: [-90.  90.]
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'CentLon': <class 'netCDF4._netCDF4.Variable'>
+float32 CentLon(time)
+    long_name: Longitude of Tropical Cyclone Circulation Center
+    units: degrees_east
+    valid_range: [-180.  360.]
+unlimited dimensions: time
+current shape = (1,)
+filling on, default _FillValue of 9.969209968386869e+36 used,
+
+'irwin': <class 'netCDF4._netCDF4.Variable'>
+int16 irwin(time, lat, lon)
+    long_name: IR Window Brightness Temperature
+    units: K
+    scale_factor: 0.01
+    add_offset: 200.0
+    GOES_channel: BAND_04
+unlimited dimensions: time
+current shape = (1, 601, 601)
+filling on, default _FillValue of -32767 used,
+
+'vschn': <class 'netCDF4._netCDF4.Variable'>
+int16 vschn(time, lat, lon)
+    long_name: Visible channel observation
+    units: Reflectance
+    scale_factor: 0.00025
+    GOES_channel: BAND_01
+unlimited dimensions: time
+current shape = (1, 601, 601)
+filling on, default _FillValue of -32767 used,
+
+'vschn_hires': <class 'netCDF4._netCDF4.Variable'>
+int16 vschn_hires(time, lat1, lon1)
+    long_name: High resolution (1km) visible channel observation
+    units: Reflectance
+    scale_factor: 0.00025
+    GOES_channel: BAND_01
+unlimited dimensions: time
+current shape = (1, 1201, 1201)
+filling on, default _FillValue of -32767 used,
+
+'irnir': <class 'netCDF4._netCDF4.Variable'>
+int16 irnir(time, lat, lon)
+    long_name: IR Near Infrared Brightness Temperature
+    units: K
+    scale_factor: 0.01
+    add_offset: 200.0
+    GOES_channel: BAND_02
+unlimited dimensions: time
+current shape = (1, 601, 601)
+filling on, default _FillValue of -32767 used,
+
+'irwvp': <class 'netCDF4._netCDF4.Variable'>
+int16 irwvp(time, lat, lon)
+    long_name: IR Water Vapor Brightness Temperature
+    units: K
+    scale_factor: 0.01
+    add_offset: 200.0
+    GOES_channel: BAND_03
+unlimited dimensions: time
+current shape = (1, 601, 601)
+filling on, default _FillValue of -32767 used,
+
+'irspl': <class 'netCDF4._netCDF4.Variable'>
+int16 irspl(time, lat, lon)
+    long_name: IR Split-Window Brightness Temperature
+    units: K
+    scale_factor: 0.01
+    add_offset: 200.0
+    GOES_channel: BAND_05
+unlimited dimensions: time
+current shape = (1, 601, 601)
+filling on, default _FillValue of -32767 used,
+
+'irco2': <class 'netCDF4._netCDF4.Variable'>
+int16 irco2(time, lat, lon)
+    long_name: IR CO2 Brightness Temperature
+    units: K
+    scale_factor: 0.01
+    add_offset: 200.0
+    GOES_channel: BAND_06
+unlimited dimensions: time
+current shape = (1, 601, 601)
+filling on, default _FillValue of -32767 used}
