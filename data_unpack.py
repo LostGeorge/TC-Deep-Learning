@@ -18,7 +18,9 @@ feat_cols = ['latitude', 'longitude', 'sensor_num', 'sat_lat', 'sat_lon']
 wind_np = np.zeros((ct, 6))
 press_np = np.zeros((ct, 6))
 n_valid = 0
-valid_channels = ['irwin', 'vschn'] # 'vschn_hires', 'irnir', 'irwvp', 'irspl', 'irco2']
+valid_channels = ['irwin'] # 'vschn', 'vschn_hires', 'irnir', 'irwvp', 'irspl', 'irco2']
+# Note that visible is a bit weird since need to consider darkness
+# TODO: create functions for each channel for proper input -> ubyte linear conversions
 
 for fp in directory:
     splts = fp.split('_')
@@ -42,9 +44,12 @@ for fp in directory:
                     press_np[n_valid] = [lat, lon, sens, sat_lat, sat_lon, pressure]
                     
                     for ch_name in valid_channels:
-                        img = nc.variables[ch_name][:][0].filled(fill_value=0)
+                        img = nc.variables[ch_name][:][0].filled(fill_value=273)
+                        img[img < 170] = 170
+                        img -= 170
+                        small_img = img.astype(np.uint8)
                         path = 'img/' + ch_name + '/' + name + '_' + year + '_' + str(n_valid)
-                        np.save(path, img)
+                        np.save(path, small_img)
 
                     n_valid += 1
 
