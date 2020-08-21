@@ -18,9 +18,31 @@ feat_cols = ['latitude', 'longitude', 'sensor_num', 'sat_lat', 'sat_lon']
 wind_np = np.zeros((ct, 6))
 press_np = np.zeros((ct, 6))
 n_valid = 0
+
+# Select what channels you want for images here
 valid_channels = ['irwin'] # 'vschn', 'vschn_hires', 'irnir', 'irwvp', 'irspl', 'irco2']
 # Note that visible is a bit weird since need to consider darkness
-# TODO: create functions for each channel for proper input -> ubyte linear conversions
+
+def sat_to_ubyte(img, key):
+    if key == 'irwin' or key == 'irnir':
+        img = img.filled(fill_value=293) # room temp is best temp
+        img[img < 160] = 293 # coldest cloud top record is 163K, so this is safe
+        img[img > 313] = 313
+        img = (img - 160) * 5 / 3
+    elif key == 'vschn' or key == 'vschn_hires':
+        img = img.filled(fill_value=0)
+        img[img < 0] = 0
+        img[img > 0.5] = 0
+        img *= 510
+    elif key == 'irwvp' or key == 'irco2':
+        img = img.filled(fill_value=273)
+        img[img < 188] = 273
+        img[img > 273] = 273
+        img = (img - 188) * 3
+    elif key == "irspl": # This seems to be all masked values?
+        return np.zeros(img.shape, dtype=np.uint8)
+
+    return img.astype(np.uint8)
 
 for fp in directory:
     splts = fp.split('_')
@@ -44,11 +66,11 @@ for fp in directory:
                     press_np[n_valid] = [lat, lon, sens, sat_lat, sat_lon, pressure]
                     
                     for ch_name in valid_channels:
-                        img = nc.variables[ch_name][:][0].filled(fill_value=273)
-                        img[img < 170] = 170
-                        img -= 170
-                        small_img = img.astype(np.uint8)
+                        img = nc.variables[ch_name][:][0]
+                        small_img = sat_to_ubyte(img, key=ch_name)
                         path = 'img/' + ch_name + '/' + name + '_' + year + '_' + str(n_valid)
+                        plt.imshow(small_img)
+                        plt.show()
                         np.save(path, small_img)
 
                     n_valid += 1
