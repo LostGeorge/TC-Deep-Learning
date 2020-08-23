@@ -68,9 +68,7 @@ for fp in directory:
                     for ch_name in valid_channels:
                         img = nc.variables[ch_name][:][0]
                         small_img = sat_to_ubyte(img, key=ch_name)
-                        path = 'img/' + ch_name + '/' + name + '_' + year + '_' + str(n_valid)
-                        plt.imshow(small_img)
-                        plt.show()
+                        path = 'img/' + ch_name + '/' + '_'.join([str(n_valid).zfill(6), name, year])
                         np.save(path, small_img)
 
                     n_valid += 1
