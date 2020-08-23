@@ -3,14 +3,16 @@ import netCDF4
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
+import os, sys
 
-directory = os.listdir('src')
+dir_in = sys.argv[1]
+dir_out = sys.argv[2]
+directory_lst = os.listdir(dir_in)
 
 # Counting the number of elements for better space complexity
 ct = 0
-for fp in directory:
-    with tarfile.open('src/' + fp, 'r:gz') as tar:
+for fp in directory_lst:
+    with tarfile.open(dir_in + '/' + fp, 'r:gz') as tar:
         ct += len(tar.getnames())
 
 feat_cols = ['latitude', 'longitude', 'sensor_num', 'sat_lat', 'sat_lon']
@@ -44,11 +46,11 @@ def sat_to_ubyte(img, key):
 
     return img.astype(np.uint8)
 
-for fp in directory:
+for fp in directory_lst:
     splts = fp.split('_')
     name = splts[-1][:-7]
     year = splts[-2][:4]
-    with tarfile.open('src/' + fp, 'r:gz') as tar:
+    with tarfile.open(dir_in + '/' + fp, 'r:gz') as tar:
         for f in tar:
             nc_file = tar.extractfile(f)
             with netCDF4.Dataset('dummy_fp', mode='r', memory=nc_file.read()) as nc:
@@ -68,15 +70,16 @@ for fp in directory:
                     for ch_name in valid_channels:
                         img = nc.variables[ch_name][:][0]
                         small_img = sat_to_ubyte(img, key=ch_name)
-                        path = 'img/' + ch_name + '/' + '_'.join([str(n_valid).zfill(6), name, year])
+                        path = '/'.join([dir_out, 'img', ch_name,
+                            '_'.join([str(n_valid).zfill(6), name, year])])
                         np.save(path, small_img)
 
                     n_valid += 1
 
 wind_np = wind_np[:n_valid]
 wind_df = pd.DataFrame(wind_np, columns=feat_cols + ['wind_speed'])
-wind_df.to_csv('wind_data.csv')
+wind_df.to_csv(dir_out + '/wind_data.csv')
 
 press_np = press_np[:n_valid]
 press_df = pd.DataFrame(press_np, columns=feat_cols + ['atm_pressure'])
-press_df.to_csv('pressure_data.csv')
+press_df.to_csv(dir_out + '/pressure_data.csv')
