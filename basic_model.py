@@ -9,6 +9,10 @@ import os, sys
 INPUT_DIM = 128
 N_SENSORS = 2
 
+# TODO: Image pipeline - create necessary tensors
+#       Data pipeline - one hot encode sensor number, standardize feats to [0, 1], create tensors
+#       Compile Model - figure out optimizer, evaluation metric
+
 path = sys.argv[1]
 imgs = [np.load(path + '/' + d) for d in os.listdir(path)]
 
