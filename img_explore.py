@@ -1,10 +1,13 @@
 import tarfile
+import urllib.request
 import netCDF4
 import matplotlib.pyplot as plt
 import numpy as np
 import time
 
-with tarfile.open('src/HURSAT-goes_v01_2015293N16164_TWENTYSIX.tar.gz', 'r:gz') as tar:
+stream = urllib.request.urlopen('ftp://filsrv.cicsnc.org/kknapp/hursat_goes/HURSAT-goes_v01_2013180N11256_DALILA.tar.gz')
+
+with tarfile.open(fileobj=stream, mode='r:gz') as tar:
     for f in tar:
         nc_file = tar.extractfile(f)
         with netCDF4.Dataset('dummy_fp', mode='r', memory=nc_file.read()) as nc:

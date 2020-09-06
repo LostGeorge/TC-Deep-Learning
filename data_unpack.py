@@ -73,7 +73,7 @@ for fp in directory_lst:
                         path = '/'.join([dir_out, 'img', ch_name,
                             '_'.join([str(n_valid).zfill(6), name, year])])
                         np.save(path, small_img)
-
+                    
                     n_valid += 1
 
 wind_np = wind_np[:n_valid]
