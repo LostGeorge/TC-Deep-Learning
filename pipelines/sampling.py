@@ -14,15 +14,15 @@ def sample_images(sample_lst, chn, s3_bucket):
         os.makedirs('data_sampled/img/' + chn)
     img_info = s3_bucket.objects.filter(Prefix='processed_data/img/' + chn + '/',
                                         Delimiter='/',
-                                        MaxKeys=200000)
-    print(chn + ' image keys retrieved from s3.')
+                                        MaxKeys=200000).all()
+    print(f'{len(img_info)} {chn} image keys retrieved from s3.')
     img_keys = np.array([img.key for img in img_info])
     img_keys.sort()
     img_keys = img_keys[sample_lst]
     for i, k in enumerate(img_keys):
         path = 'data_sampled/img/' + chn + '/' + str(sample_lst[i]).zfill(6) + '.npy'
         s3_bucket.download_file(k, path)
-    print(chn + ' images saved to disk.')
+    print(f'{len(img_info)} {chn} images saved to disk.')
 
 def sample_df(sample_lst, df, name):
     df = df.iloc[sample_lst, :]
