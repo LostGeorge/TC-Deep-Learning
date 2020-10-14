@@ -5,6 +5,7 @@ import pandas as pd
 
 SAMPLE_FACTOR = 0.0002
 random.seed(0)
+np.random.seed(0)
 
 def sample_images(sample_lst, chn, s3_bucket):
     if not os.path.exists('data_sampled/img'):
@@ -18,8 +19,8 @@ def sample_images(sample_lst, chn, s3_bucket):
     img_keys = np.array([img.key for img in img_info])
     img_keys.sort()
     img_keys = img_keys[sample_lst]
-    for k in img_keys:
-        path = 'data_sampled/img/' + chn + '/' + (k.split('/')[-1])
+    for i, k in enumerate(img_keys):
+        path = 'data_sampled/img/' + chn + '/' + str(sample_lst[i]).zfill(6) + '.npy'
         s3_bucket.download_file(k, path)
     print(chn + ' images saved to disk.')
 
@@ -46,6 +47,7 @@ print('Pressure data retrieved from s3.')
 
 n_total = len(wind_df)
 samples = random.sample(range(n_total), int(n_total * SAMPLE_FACTOR))
+samples.sort()
 
 sample_df(samples, wind_df, 'wind_data_sampled')
 sample_df(samples, press_df, 'pressure_data_sampled')
