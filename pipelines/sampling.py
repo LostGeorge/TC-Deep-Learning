@@ -3,7 +3,7 @@ import boto3, s3fs
 import numpy as np
 import pandas as pd
 
-SAMPLE_FACTOR = 0.0002
+SAMPLE_FACTOR = 0.1
 random.seed(0)
 np.random.seed(0)
 
