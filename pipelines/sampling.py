@@ -22,7 +22,7 @@ def sample_images(sample_lst, chn, s3_bucket):
     for i, k in enumerate(img_keys):
         path = 'data_sampled/img/' + chn + '/' + str(sample_lst[i]).zfill(6) + '.npy'
         s3_bucket.download_file(k, path)
-    print(f'{len(img_info)} {chn} images saved to disk.')
+    print(f'{len(img_keys)} {chn} images saved to disk.')
 
 def sample_df(sample_lst, df, name):
     df = df.iloc[sample_lst, :]
