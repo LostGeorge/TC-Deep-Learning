@@ -15,8 +15,8 @@ def sample_images(sample_lst, chn, s3_bucket):
     img_info = s3_bucket.objects.filter(Prefix='processed_data/img/' + chn + '/',
                                         Delimiter='/',
                                         MaxKeys=200000).all()
-    print(f'{len(img_info)} {chn} image keys retrieved from s3.')
     img_keys = np.array([img.key for img in img_info])
+    print(f'{len(img_keys)} {chn} image keys retrieved from s3.')
     img_keys.sort()
     img_keys = img_keys[sample_lst]
     for i, k in enumerate(img_keys):
