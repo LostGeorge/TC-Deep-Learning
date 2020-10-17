@@ -8,6 +8,7 @@ random.seed(0)
 np.random.seed(0)
 
 def sample_images(sample_lst, chn, s3_bucket):
+    sample_set = set(sample_lst)
     if not os.path.exists('data_sampled/img'):
         os.makedirs('data_sampled/img')
     if not os.path.exists('data_sampled/img/' + chn):
@@ -15,10 +16,9 @@ def sample_images(sample_lst, chn, s3_bucket):
     img_info = s3_bucket.objects.filter(Prefix='processed_data/img/' + chn + '/',
                                         Delimiter='/',
                                         MaxKeys=200000).all()
-    img_keys = np.array([img.key for img in img_info])
+    img_keys = [img.key for i, img in enumerate(img_info) if i in sample_set]
     print(f'{len(img_keys)} {chn} image keys retrieved from s3.')
     img_keys.sort()
-    img_keys = img_keys[sample_lst]
     for i, k in enumerate(img_keys):
         path = 'data_sampled/img/' + chn + '/' + str(sample_lst[i]).zfill(6) + '.npy'
         s3_bucket.download_file(k, path)
