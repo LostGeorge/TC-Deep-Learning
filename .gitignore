@@ -3,4 +3,7 @@ __pycache__
 src/*
 img/*
 data_processed/*
+data_sampled/*
+*.sh
 keys
+slurm*
